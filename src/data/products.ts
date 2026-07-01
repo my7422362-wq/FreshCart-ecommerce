@@ -255,16 +255,8 @@ export const products: Product[] = [
         const isBestSeller = n % 5 === 0
         const discountPercentage = n % 8 === 0 ? ((n % 25) + 5) : undefined
 
-        const categoryMap: Record<string, Product['category']> = {
-          shoes: 'shoes',
-          tech: 'tech',
-          accessories: 'accessories',
-          clothing: 'clothing',
-          home: 'home',
-          beauty: 'beauty',
-        }
-
         // Reuse the old static data by pattern: the original file had fixed categories.
+
         // If a category mismatch happens for any ID, TS will flag it in dev.
         // Here we approximate categories by cycling through the 6 legacy groups.
         const legacyCats: Product['category'][] = [
