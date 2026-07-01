@@ -1,14 +1,22 @@
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearCart, decreaseQuantity, increaseQuantity, removeFromCart } from '../redux/cartSlice'
 import type { RootState } from '../redux/store'
+import CheckoutModal from '../components/checkout/CheckoutModal'
 
 export default function CartPage() {
   const dispatch = useDispatch()
   const items = useSelector((state: RootState) => state.cart.items)
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
   const shipping = subtotal > 0 ? 4.99 : 0
   const total = subtotal + shipping
+
+  const handleCheckoutClick = () => {
+    if (items.length === 0) return
+    setIsCheckoutOpen(true)
+  }
 
   return (
     <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
@@ -85,10 +93,17 @@ export default function CartPage() {
           </div>
         </div>
 
-        <button className="mt-8 w-full rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700">
-          Proceed to checkout
+        <button
+          onClick={handleCheckoutClick}
+          className="mt-8 w-full rounded-full bg-emerald-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-emerald-400"
+          disabled={items.length === 0}
+        >
+          Checkout
         </button>
       </aside>
+
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
     </div>
   )
 }
+

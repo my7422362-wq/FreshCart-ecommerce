@@ -75,7 +75,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setIsOpen((prev) => !prev)}
-            className="rounded-full border border-emerald-200 bg-emerald-50 p-2.5 text-emerald-700 transition hover:bg-emerald-100 md:hidden"
+            className="rounded-full border border-emerald-200 bg-emerald-50 p-2.5 text-emerald-700 transition hover:bg-emerald-100 md:hidden focus:outline-none focus:ring-2 focus:ring-emerald-200"
             aria-label="Toggle navigation"
             aria-expanded={isOpen}
           >
@@ -87,8 +87,9 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-emerald-100 bg-white/95 px-4 py-3 shadow-sm md:hidden">
+        <div className="border-t border-emerald-100 bg-white/95 px-4 py-3 shadow-sm md:hidden animate-in fade-in-0 zoom-in-95">
           <nav className="flex flex-col gap-2">
+
             {navItems.map((item) => (
               <NavLink
                 key={item.to}

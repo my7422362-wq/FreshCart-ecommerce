@@ -1,9 +1,25 @@
+export type ProductCategory =
+  | 'shoes'
+  | 'tech'
+  | 'accessories'
+  | 'clothing'
+  | 'home'
+  | 'beauty'
+  | 'electronics'
+  | 'kitchen'
+
 export interface Product {
   id: string
   title: string
   price: number
-  description: string
+  category: ProductCategory
   image: string
-  badge?: string
-  category: 'shoes' | 'tech' | 'accessories' | 'clothing' | 'home' | 'beauty'
+  description: string
+
+  rating: number
+  isNew: boolean
+  isBestSeller: boolean
+
+  discountPercentage?: number
 }
+

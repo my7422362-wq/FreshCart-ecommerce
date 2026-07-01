@@ -35,11 +35,25 @@ export default function ProductCard({ product }: ProductCardProps) {
     <article className="group overflow-hidden rounded-[1.6rem] border border-slate-200 bg-white shadow-[0_10px_35px_-20px_rgba(15,23,42,0.25)] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_24px_60px_-24px_rgba(15,23,42,0.35)]">
       <div className="relative flex h-56 items-center justify-center bg-gradient-to-br from-emerald-50 via-lime-50 to-white sm:h-60">
         <div className="absolute inset-x-0 top-0 flex items-center justify-between p-3">
-          {product.badge && (
-            <span className="rounded-full bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-emerald-700 shadow-sm">
-              {product.badge}
-            </span>
-          )}
+          <div className="flex flex-wrap items-start gap-2">
+
+            {product.isNew && (
+              <span className="rounded-full bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-emerald-700 shadow-sm">
+                New
+              </span>
+            )}
+            {product.isBestSeller && (
+              <span className="rounded-full bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-amber-700 shadow-sm">
+                Best Seller
+              </span>
+            )}
+            {typeof product.discountPercentage === 'number' && product.discountPercentage > 0 && (
+              <span className="rounded-full bg-white/90 px-3 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-rose-700 shadow-sm">
+                Sale
+              </span>
+            )}
+          </div>
+
           <button
             type="button"
             onClick={handleToggleWishlist}
