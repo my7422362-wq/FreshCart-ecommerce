@@ -1,75 +1,128 @@
-# React + TypeScript + Vite
+# FreshCart 🛒✨ — Modern E-Commerce Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Cover](./screenshots/products.png)
 
-Currently, two official plugins are available:
+FreshCart is a modern, responsive, and scalable e-commerce frontend built with **React**, **TypeScript**, **Tailwind CSS**, **Redux Toolkit**, **React Router**, and **Vite**. It focuses on delivering a real-world online shopping experience with a clean architecture, reusable components, and a polished UI.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Live Demo 🚀
+https://fresh-cart-ecommerce-uhhb.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Screenshots 📸
 
-## Expanding the ESLint configuration
+![Home](./screenshots/home.png)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+![Products](./screenshots/products.png)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+![Product Details](./screenshots/productsdetails.png)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+![Cart](./screenshots/cart.png)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+![Wishlist](./screenshots/wishlist.png)
 
+![Checkout](./screenshots/checkout.png)
+
+![Mobile View](./screenshots/mobile.png)
+
+---
+
+## Features ✅
+
+- Responsive Design
+- Product Listing
+- Product Details
+- Category Filtering
+- Search
+- Shopping Cart
+- Wishlist
+- Checkout Flow
+- Form Validation
+- Toast Notifications
+- Clean UI
+- Reusable Components
+- TypeScript
+- Redux Toolkit
+- React Router
+
+---
+
+## Tech Stack 🧰
+
+| Technology | Why it’s used |
+|---|---|
+| React | Component-based UI |
+| TypeScript | Type safety & developer confidence |
+| Tailwind CSS | Fast, responsive styling |
+| Redux Toolkit | Predictable state management |
+| React Router | Client-side routing |
+| Vite | Ultra-fast dev server & build tooling |
+| React Toastify | Notifications for better UX |
+
+---
+
+## Folder Structure 📁
+
+```txt
+src/
+├─ assets/
+├─ components/
+│  ├─ common/
+│  ├─ checkout/
+│  └─ layout/
+├─ data/
+├─ hooks/
+├─ pages/
+├─ redux/
+├─ routes/
+├─ services/
+├─ types/
+└─ utils/
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Installation 🛠️
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/my7422362-wq/freshcart-frontend.git
+cd freshcart-frontend
+npm install
+npm run dev
 ```
+
+---
+
+## Responsive Design 📱💻
+
+FreshCart is designed to work smoothly across **Mobile**, **Tablet**, **Laptop**, and **Desktop**. The layout and UI components are built to remain usable and visually consistent on all screen sizes.
+
+---
+
+## Future Improvements 🌱
+
+Planned enhancements for upcoming versions:
+
+- Authentication
+- Backend Integration
+- Payment Gateway
+- Order History
+- Product Reviews
+- Coupons
+
+
+
+---
+
+## Author 👤
+
+- **Name:** [Muhammad Youssef]
+- **LinkedIn:** [linkedin.com/in/muhammed-youssef]
+- **GitHub:** [https://github.com/my7422362-wq]
+
+---
+
+## ⭐ Star This Repository
+
+If you found FreshCart helpful or inspiring, please consider **starring** the repository. Thanks for the support! ❤️
+
