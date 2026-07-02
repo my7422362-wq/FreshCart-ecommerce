@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom'
 import ProductCard from '../components/common/ProductCard'
 import { featuredProducts } from '../data/products'
+
 
 export default function HomePage() {
   return (
@@ -16,19 +18,20 @@ export default function HomePage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="/products"
+              <Link
+                to="/products"
                 className="rounded-full bg-white px-5 py-3 text-sm font-semibold text-emerald-700 transition hover:-translate-y-0.5 hover:bg-emerald-50"
               >
                 Shop now
-              </a>
-              <a
-                href="/wishlist"
+              </Link>
+              <Link
+                to="/wishlist"
                 className="rounded-full border border-white/40 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
                 View wishlist
-              </a>
+              </Link>
             </div>
+
 
             <div className="mt-6 flex flex-wrap gap-3 text-sm text-emerald-50">
               <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Free delivery over $35</span>
@@ -58,9 +61,10 @@ export default function HomePage() {
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">Featured products</p>
             <h2 className="text-2xl font-semibold text-slate-900">Popular this week</h2>
           </div>
-          <a href="/products" className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
+          <Link to="/products" className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
             See all
-          </a>
+          </Link>
+
         </div>
 
         <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

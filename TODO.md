@@ -1,6 +1,8 @@
-- [x] التشخيص: تشغيل tsc لتحديد أخطاء TypeScript في المشروع
-- [x] الإصلاح: إزالة unused variable في src/data/products.ts (TS6133)
-- [x] التحقق: تشغيل npx tsc بدون أخطاء
-- [x] التحقق: تشغيل npx vite build بنجاح
-- [ ] (اختياري) التأكد النهائي عبر npm run build في بيئة Vercel
+# FreshCart - TODO
+
+## Routing fixes
+- [x] Confirm routes exist for `/products` and `/wishlist` in `src/routes/AppRoutes.tsx`
+- [x] Update homepage buttons to use React Router `Link` (no full page reload) in `src/pages/Home.tsx`
+- [x] Run the app and verify clicking “Shop now” and “View wishlist” navigates without 404
+
 
