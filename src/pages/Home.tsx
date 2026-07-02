@@ -1,11 +1,26 @@
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import ProductCard from '../components/common/ProductCard'
-import { featuredProducts } from '../data/products'
+import { featuredProducts, products } from '../data/products'
+import ProductSearchInput from '../components/common/ProductSearchInput'
+import { useDebouncedValue } from '../hooks/useDebouncedValue'
+
 
 
 export default function HomePage() {
+  const [searchQuery, setSearchQuery] = useState('')
+  const debouncedQuery = useDebouncedValue(searchQuery, 300)
+
+  const results = useMemo(() => {
+    const q = debouncedQuery.trim().toLowerCase()
+    const source = featuredProducts
+    if (!q) return source
+    return source.filter((p) => p.title.toLowerCase().includes(q))
+  }, [debouncedQuery])
+
   return (
     <div className="space-y-8">
+
       <section className="overflow-hidden rounded-[2rem] border border-emerald-100 bg-gradient-to-br from-emerald-600 via-emerald-500 to-lime-500 p-6 text-white shadow-[0_20px_60px_-25px_rgba(16,185,129,0.55)] sm:p-8 lg:p-12">
         <div className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
@@ -56,23 +71,45 @@ export default function HomePage() {
       </section>
 
       <section>
-        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">Featured products</p>
-            <h2 className="text-2xl font-semibold text-slate-900">Popular this week</h2>
+        <div className="mb-5 flex flex-col gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-emerald-600">Featured products</p>
+              <h2 className="text-2xl font-semibold text-slate-900">Popular this week</h2>
+            </div>
+            <Link to="/products" className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
+              See all
+            </Link>
           </div>
-          <Link to="/products" className="text-sm font-semibold text-emerald-600 transition hover:text-emerald-700">
-            See all
-          </Link>
 
+          <ProductSearchInput
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder="Search featured products..."
+          />
         </div>
 
-        <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-          {featuredProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        {results.length === 0 ? (
+          <div className="rounded-[2rem] border border-slate-200 bg-white p-10 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-600">No results found</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-900">Try a different search</h2>
+            <button
+              type="button"
+              className="mt-6 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+              onClick={() => setSearchQuery('')}
+            >
+              Clear search
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            {results.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        )}
       </section>
+
     </div>
   )
 }

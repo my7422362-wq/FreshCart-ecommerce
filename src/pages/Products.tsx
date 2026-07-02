@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { products } from "../data/products";
 import ProductCard from "../components/common/ProductCard";
+import ProductSearchInput from "../components/common/ProductSearchInput";
+import { useDebouncedValue } from "../hooks/useDebouncedValue";
+
 
 const categories = [
   "All",
@@ -21,21 +24,27 @@ export default function Products() {
   const [selected, setSelected] = useState<CategoryFilter>("All");
   const [onlyBestSellers, setOnlyBestSellers] = useState(false);
   const [onlyNewArrivals, setOnlyNewArrivals] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filtered = products.filter((p) => {
-    const categoryMatch =
-      selected === 'All'
-        ? true
-        : p.category.toLowerCase() === selected.toLowerCase()
+  const debouncedQuery = useDebouncedValue(searchQuery, 300);
 
-    const bestSellerMatch = onlyBestSellers ? p.isBestSeller : true
-    const newArrivalMatch = onlyNewArrivals ? p.isNew : true
+  const filtered = useMemo(() => {
+    const normalizedQuery = debouncedQuery.trim().toLowerCase();
 
+    return products.filter((p) => {
+      const categoryMatch =
+        selected === 'All'
+          ? true
+          : p.category.toLowerCase() === selected.toLowerCase();
 
+      const bestSellerMatch = onlyBestSellers ? p.isBestSeller : true;
+      const newArrivalMatch = onlyNewArrivals ? p.isNew : true;
 
-    return categoryMatch && bestSellerMatch && newArrivalMatch
-  })
+      const nameMatch = normalizedQuery.length === 0 ? true : p.title.toLowerCase().includes(normalizedQuery);
 
+      return categoryMatch && bestSellerMatch && newArrivalMatch && nameMatch;
+    });
+  }, [debouncedQuery, onlyBestSellers, onlyNewArrivals, selected]);
 
   return (
     <div className="w-full overflow-x-hidden">
@@ -43,7 +52,10 @@ export default function Products() {
 
         {/* CATEGORIES + BADGE FILTERS (mobile safe) */}
         <div className="flex flex-col gap-3">
+          <ProductSearchInput value={searchQuery} onChange={setSearchQuery} placeholder="Search by product name..." />
+
           <div className="flex gap-2 overflow-x-auto whitespace-nowrap py-2 max-w-full">
+
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -154,22 +166,45 @@ export default function Products() {
 
 
           {/* PRODUCTS GRID (FIXED RESPONSIVE ONLY) */}
-          <div
-            className="
-              grid
-              grid-cols-2
-              sm:grid-cols-2
-              md:grid-cols-3
-              lg:grid-cols-4
-              gap-3 sm:gap-5
-              flex-1
-              w-full
-            "
-          >
-            {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {filtered.length === 0 ? (
+            <div className="flex flex-1 items-center justify-center rounded-[2rem] border border-slate-200 bg-white p-10">
+              <div className="text-center">
+                <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-600">No results found</p>
+                <h2 className="mt-2 text-2xl font-semibold text-slate-900">Try a different search</h2>
+                <p className="mt-3 text-sm leading-6 text-slate-600">
+                  {debouncedQuery.trim().length === 0
+                    ? 'Adjust filters to see more products.'
+                    : 'We couldn’t find any products matching your search.'}
+                </p>
+                {debouncedQuery.trim().length > 0 && (
+                  <button
+                    type="button"
+                    className="mt-6 rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                    onClick={() => setSearchQuery('')}
+                  >
+                    Clear search
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div
+              className="
+                grid
+                grid-cols-2
+                sm:grid-cols-2
+                md:grid-cols-3
+                lg:grid-cols-4
+                gap-3 sm:gap-5
+                flex-1
+                w-full
+              "
+            >
+              {filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )}
 
         </div>
       </div>
