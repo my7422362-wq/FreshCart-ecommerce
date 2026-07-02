@@ -11,7 +11,7 @@ https://fresh-cart-ecommerce-uhhb.vercel.app/
 
 ## Screenshots 📸
 
-![Home](./screenshots/home.png)
+![Home](./puplic/screenshots/home.png)
 
 ![Products](./screenshots/products.png)
 
