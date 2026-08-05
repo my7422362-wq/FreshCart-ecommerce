@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { products } from "../data/products";
 import ProductCard from "../components/common/ProductCard";
 import ProductSearchInput from "../components/common/ProductSearchInput";
@@ -19,12 +20,24 @@ const categories = [
 
 type CategoryFilter = (typeof categories)[number]
 
+function readCategoryFromParams(params: URLSearchParams): CategoryFilter {
+  const raw = params.get('category')
+  const match = categories.find((cat) => cat.toLowerCase() === raw?.toLowerCase())
+  return match ?? 'All'
+}
+
 
 export default function Products() {
-  const [selected, setSelected] = useState<CategoryFilter>("All");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [selected, setSelectedState] = useState<CategoryFilter>(() => readCategoryFromParams(searchParams));
   const [onlyBestSellers, setOnlyBestSellers] = useState(false);
   const [onlyNewArrivals, setOnlyNewArrivals] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+
+  const setSelected = (next: CategoryFilter) => {
+    setSelectedState(next);
+    setSearchParams(next === 'All' ? {} : { category: next.toLowerCase() }, { replace: true });
+  };
 
   const debouncedQuery = useDebouncedValue(searchQuery, 300);
 

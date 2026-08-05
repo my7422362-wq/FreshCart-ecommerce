@@ -1,25 +1,26 @@
 # FreshCart 🛒✨ — Modern E-Commerce Frontend
 
-![Cover](./public/screenshots/Products.png)
+![Cover](./public/screenshots/home.png)
+![Cover](./public/screenshots/home1.png)
 
 FreshCart is a modern, responsive, and scalable e-commerce frontend built with **React**, **TypeScript**, **Tailwind CSS**, **Redux Toolkit**, **React Router**, and **Vite**. It focuses on delivering a real-world online shopping experience with a clean architecture, reusable components, and a polished UI.
 
 ## Live Demo 🚀
-https://fresh-cart-ecommerce-uhhb.vercel.app/
+https://fresh-cart-ecommerce-ruddy.vercel.app/  
 
 ---
 
 ## Screenshots 📸
 
-![Home](./public/screenshots/home.png)
 
-![Products](./public/screenshots/Products.png)
 
-![Product Details](./public/screenshots/productsdetails.png)
+![Products](./public/screenshots/Product.png)
+
+![Product Details](./public/screenshots/details.png)
 
 ![Cart](./public/screenshots/cart.png)
 
-![Wishlist](./public/screenshots/Wishlist.png)
+![Wishlist](./public/screenshots/fav.png)
 
 ![Checkout](./public/screenshots/checkout.png)
 

@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux'
 import type { RootState } from '../redux/store'
+import { formatPrice } from '../utils/formatPrice'
 
 export default function WishlistPage() {
   const items = useSelector((state: RootState) => state.wishlist.items)
@@ -26,7 +27,7 @@ export default function WishlistPage() {
               <h3 className="mt-4 text-lg font-semibold text-slate-900">{item.title}</h3>
               <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
               <div className="mt-5 flex items-center justify-between">
-                <span className="text-lg font-bold text-slate-900">${item.price.toFixed(2)}</span>
+                <span className="text-lg font-bold text-slate-900">{formatPrice(item.price)}</span>
                 <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-700">
                   Loved
                 </span>

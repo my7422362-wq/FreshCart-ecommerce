@@ -5,6 +5,7 @@ import { addToCart } from '../redux/cartSlice'
 import { products } from '../data/products'
 import type { RootState } from '../redux/store'
 import { toggleWishlist } from '../redux/wishlistSlice'
+import { formatPrice } from '../utils/formatPrice'
 
 export default function ProductDetailsPage() {
   const { id } = useParams()
@@ -22,7 +23,9 @@ export default function ProductDetailsPage() {
     )
   }
 
-  const relatedProducts = products.filter((item) => item.id !== product.id).slice(0, 3)
+  const relatedProducts = products
+    .filter((item) => item.id !== product.id && item.category === product.category)
+    .slice(0, 3)
 
   const handleAddToCart = () => {
     dispatch(addToCart({ id: product.id, name: product.title, price: product.price, image: product.image, quantity: 1 }))
@@ -78,7 +81,7 @@ export default function ProductDetailsPage() {
 
             <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-5">
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-500">Price</p>
-              <p className="mt-2 text-3xl font-bold text-slate-900">${product.price.toFixed(2)}</p>
+              <p className="mt-2 text-3xl font-bold text-slate-900">{formatPrice(product.price)}</p>
             </div>
 
             <p className="mt-6 text-base leading-8 text-slate-600">{product.description}</p>
@@ -122,7 +125,7 @@ export default function ProductDetailsPage() {
               <h4 className="mt-4 text-lg font-semibold text-slate-900">{item.title}</h4>
               <p className="mt-2 text-sm leading-6 text-slate-600">{item.description}</p>
               <div className="mt-4 flex items-center justify-between">
-                <span className="font-semibold text-slate-900">${item.price.toFixed(2)}</span>
+                <span className="font-semibold text-slate-900">{formatPrice(item.price)}</span>
                 <a href={`/product/${item.id}`} className="text-sm font-semibold text-emerald-600 hover:text-emerald-700">
                   View details
                 </a>

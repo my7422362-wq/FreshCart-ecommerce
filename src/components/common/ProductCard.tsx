@@ -5,6 +5,7 @@ import type { Product } from '../../types/product'
 import { addToCart } from '../../redux/cartSlice'
 import { toggleWishlist } from '../../redux/wishlistSlice'
 import type { RootState } from '../../redux/store'
+import { formatPrice } from '../../utils/formatPrice'
 
 interface ProductCardProps {
   product: Product
@@ -74,7 +75,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-4 sm:p-5">
         <div className="flex items-center justify-between gap-3">
           <span className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-slate-400">{displayCategory}</span>
-          <span className="text-sm font-medium text-slate-500">★ 4.8</span>
+          <span className="text-sm font-medium text-slate-500">★ {product.rating.toFixed(1)}</span>
         </div>
 
         <h3 className="mt-3 text-[1.02rem] font-semibold leading-6 text-slate-900">{product.title}</h3>
@@ -83,7 +84,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="mt-5 flex items-center justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Price</p>
-            <p className="text-lg font-bold text-slate-900">${product.price.toFixed(2)}</p>
+            <p className="text-lg font-bold text-slate-900">{formatPrice(product.price)}</p>
           </div>
           <button
             type="button"

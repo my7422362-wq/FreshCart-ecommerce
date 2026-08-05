@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { clearCart, decreaseQuantity, increaseQuantity, removeFromCart } from '../redux/cartSlice'
 import type { RootState } from '../redux/store'
 import CheckoutModal from '../components/checkout/CheckoutModal'
+import { formatPrice } from '../utils/formatPrice'
 
 export default function CartPage() {
   const dispatch = useDispatch()
@@ -10,7 +11,7 @@ export default function CartPage() {
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
 
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  const shipping = subtotal > 0 ? 4.99 : 0
+  const shipping = subtotal > 0 ? 60 : 0
   const total = subtotal + shipping
 
   const handleCheckoutClick = () => {
@@ -47,7 +48,7 @@ export default function CartPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-slate-900">{item.name}</h3>
-                    <p className="text-sm text-slate-600">${item.price.toFixed(2)} each</p>
+                    <p className="text-sm text-slate-600">{formatPrice(item.price)} each</p>
                   </div>
                 </div>
 
@@ -62,7 +63,7 @@ export default function CartPage() {
                     </button>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-slate-900">${(item.price * item.quantity).toFixed(2)}</p>
+                    <p className="font-semibold text-slate-900">{formatPrice(item.price * item.quantity)}</p>
                     <button onClick={() => dispatch(removeFromCart(item.id))} className="text-sm text-rose-500 hover:text-rose-600">
                       Remove
                     </button>
@@ -81,15 +82,15 @@ export default function CartPage() {
         <div className="mt-6 space-y-3 text-sm text-slate-600">
           <div className="flex justify-between">
             <span>Subtotal</span>
-            <span>${subtotal.toFixed(2)}</span>
+            <span>{formatPrice(subtotal)}</span>
           </div>
           <div className="flex justify-between">
             <span>Shipping</span>
-            <span>{shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`}</span>
+            <span>{shipping === 0 ? 'Free' : formatPrice(shipping)}</span>
           </div>
           <div className="flex justify-between border-t border-slate-200 pt-3 text-base font-semibold text-slate-900">
             <span>Total</span>
-            <span>${total.toFixed(2)}</span>
+            <span>{formatPrice(total)}</span>
           </div>
         </div>
 
